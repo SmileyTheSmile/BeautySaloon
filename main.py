@@ -8,12 +8,11 @@ def main():
 
     # result = business_logic.register_new_client(**EXAMPLE_CLIENT)
 
-    result = business_logic.log_in(login="kdanil01",
-                                   password="begemot")
-    print(result)
+    # result = business_logic.log_in(login="kdanil01",
+    #                               password="begemot")
 
-    # ui = UI(business_logic)
-    # ui.mainloop()
+    ui = UI(business_logic)
+    ui.mainloop()
 
 
 if __name__ == '__main__':
