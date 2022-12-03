@@ -11,7 +11,7 @@ class Transactions:
     def __init__(self):
         self.mapper = setup_mapper()
 
-    # GLOBAL TRANSACTIONS
+    # Select transactions
 
     def log_in(self, login, password):
         try:
@@ -32,8 +32,34 @@ class Transactions:
 
         return 0, result
 
-    # USER TRANSACTIONS
-        # Insert transactions
+    def load_all_cosmetologist_info(self):
+        try:
+            result = self.mapper.query(Cosmetologist).all()
+        except StatementError as error:
+            self.mapper.rollback()
+            return 1, error.detail
+
+        return 0, result
+
+    def load_all_appointment_info(self):
+        try:
+            result = self.mapper.query(Appointment).all()
+        except StatementError as error:
+            self.mapper.rollback()
+            return 1, error.detail
+
+        return 0, result
+
+    def load_all_client_info(self):
+        try:
+            result = self.mapper.query(Client).all()
+        except StatementError as error:
+            self.mapper.rollback()
+            return 1, error.detail
+
+        return 0, result
+
+    # Insert transactions
 
     def create_appointment(self, **appointment_info):
         try:
@@ -55,11 +81,6 @@ class Transactions:
 
         return 0,
 
-        # Select transactions
-
-    # ADMIN TRANSACTIONS
-        # Insert transactions
-
     def create_cosmetologist(self, **cosmetologist_info):
         try:
             self.mapper.add(Client(**cosmetologist_info))
@@ -71,12 +92,3 @@ class Transactions:
         return 0,
 
         # Select transactions
-
-    def load_all_client_info(self):
-        try:
-            result = self.mapper.query(Client).all()
-        except StatementError as error:
-            self.mapper.rollback()
-            return 1, error.detail
-
-        return 0, result
