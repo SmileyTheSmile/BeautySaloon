@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-from constants import DATABASE_TYPE, USER, PASSWORD, HOST, DATABASE_NAME
+from constants import DatabaseSettings as DBS
 
 Base = declarative_base()
 
@@ -98,9 +98,7 @@ class Appointment(Base):
 
 
 def setup_mapper():
-    """Get a ready-to-go mapper for the database"""
-
-    connection_string = f"{DATABASE_TYPE}://{USER}:{PASSWORD}@{HOST}/{DATABASE_NAME}"
+    connection_string = f"{DBS.database_type}://{DBS.user}:{DBS.password}@{DBS.host}/{DBS.database_name}"
     engine = create_engine(connection_string)
     Base.metadata.create_all(bind=engine)
 

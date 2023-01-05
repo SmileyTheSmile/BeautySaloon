@@ -1,50 +1,96 @@
-# Shortcut constants
-EXAMPLE_CLIENT = {"id": 1,
-                  "login": "kdanil01",
-                  "password": "begemot",
-                  "account_type": "admin",
-                  "name": "Даниил",
-                  "surname": "Капитанов",
-                  "last_name": "Сергеевич",
-                  "address": "[Засекречено]",
-                  "email": "kdanil01@mail.ru",
-                  "phone_number": "89052482424",
-                  "date_of_birth": "09.02.2001",
-                  "date_of_registration": "02.12.2022"
-                  }
+class DebugData:
+    example_client = {"id": 1,
+                      "login": "kdanil01",
+                      "password": "begemot",
+                      "account_type": "admin",
+                      "name": "Даниил",
+                      "surname": "Капитанов",
+                      "last_name": "Сергеевич",
+                      "address": "[Засекречено]",
+                      "email": "kdanil01@mail.ru",
+                      "phone_number": "89052482424",
+                      "date_of_birth": "09.02.2001",
+                      "date_of_registration": "02.12.2022"
+                      }
+    example_cosmetologist = {"id": 1,
+                      "name": "Даниил",
+                      "surname": "Капитанов",
+                      "last_name": "Сергеевич",
+                      "address": "[Засекречено]",
+                      "email": "kdanil01@mail.ru",
+                      "phone_number": "89052482424",
+                      "date_of_birth": "09.02.2001",
+                      "date_of_hire": "02.12.2022"
+                      }
+    example_login = "kdanil01"
+    example_password = "begemot"
 
-# Technical constants
-LOGIN_WINDOW_RESOLUTION = '400x220'
-REGISTRATION_WINDOW_RESOLUTION = '560x420'
-FONT_DEFAULT = ("League Gothic", 24)
-FONT_MEDIUM = ("League Gothic", 16)
 
-# Database parameters
-DATABASE_TYPE = "postgresql+psycopg2"
-USER = "postgres"
-PASSWORD = "sosiska12"
-HOST = "localhost"
-DATABASE_NAME = "beauty_saloon"
+class UISettings:
+    title = 'Салон Красоты'
+    login_window_resolution = '400x220'
+    registration_window_resolution = '560x420'
+    profile_window_resolution = '720x380'
+    appointment_window_resolution = '360x180'
+    font_big = ("League Gothic", 24)
+    font_medium = ("League Gothic", 16)
 
-# Logging messages
-USER_CREATED_LOG = "User added successfully!"
-LOGIN_FAILED_LOG = "Неверный логин или пароль"
 
-# UI text
-TITLE = 'Салон Красоты'
+class DatabaseSettings:
+    database_type = "postgresql+psycopg2"
+    user = "postgres"
+    password = "sosiska12"
+    host = "localhost"
+    database_name = "beauty_saloon"
 
-LOGIN_LABEL_TEXT = "Логин"
-PASSWORD_LABEL_TEXT = "Пароль"
-PASSWORD_CONFIRMATION_LABEL_TEXT = "Подтвердите пароль"
-LOGIN_BUTTON_TEXT = "Войти"
-REGISTRATION_BUTTON_TEXT = "Зарегистрироваться"
-BACK_BUTTON_TEXT = "Назад"
-LOGIN_TITLE_LABEL_TEXT = "Салон Красоты"
-PROFILE_TITLE_LABEL_TEXT = "Профиль"
-REGISTRATION_TITLE_LABEL_TEXT = "Регистрация"
-NAME_LABEL_TEXT = "Имя"
-SURNAME_LABEL_TEXT = "Фамилия"
-LAST_NAME_LABEL_TEXT = "Отчество"
-ADDRESS_LABEL_TEXT = "Адрес"
-EMAIL_LABEL_TEXT = "Эл. Почта"
-PHONE_NUMBER_LABEL_TEXT = "Телефон"
+
+class LoggingText:
+    user_created_log = "User added successfully!"
+    login_failed_log = "Неверный логин или пароль"
+
+
+class LoginWindowText:
+    title_label = "Салон Красоты"
+    login_label = "Логин:"
+    password_label = "Пароль:"
+    login_button = "Войти"
+    registration_button = "Зарегистрироваться"
+
+
+class RegistrationWindowText:
+    title_label = "Регистрация"
+    name_label = "Имя"
+    surname_label = "Фамилия"
+    last_name_label = "Отчество"
+    address_label = "Адрес"
+    email_label = "Эл. Почта"
+    phone_number_label = "Телефон"
+    date_of_birth_label = "Дата рождения"
+    login_label = "Логин"
+    password_label = "Пароль"
+    password_confirmation_label = "Подтвердите пароль"
+    registration_button = "Зарегистрироваться"
+    back_button = "Назад"
+
+
+class ProfileWindowText:
+    title_label = "Текущий пользователь: {}"
+    current_user_label = "Текущий пользователь: {}"
+    name_label = "Имя: {}"
+    surname_label = "Фамилия: {}"
+    last_name_label = "Отчество: {}"
+    address_label = "Адрес: {}"
+    email_label = "Электронная почта: {}"
+    phone_number_label = "Телефон: {}"
+    date_of_birth_label = "Дата рождения: {}"
+    logout_button = "Выйти из аккаунта"
+    create_appointment_button = "Записаться"
+
+
+class AppointmentWindowText:
+    title_label = "Запись на приём"
+    back_button = "Отмена"
+    apply_button = "Записаться"
+    date_label = "Введите дату записи"
+    available_cosmetologists_dropdown = "Выберите косметолога"
+    create_appointment_button = "Записаться"

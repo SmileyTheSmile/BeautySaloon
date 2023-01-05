@@ -1,15 +1,12 @@
 from ui import UI
 from transactions import Transactions
-from constants import EXAMPLE_CLIENT
+from constants import DebugData
 
 
 def main():
     business_logic = Transactions()
 
-    # result = business_logic.register_new_client(**EXAMPLE_CLIENT)
-
-    # result = business_logic.log_in(login="kdanil01",
-    #                               password="begemot")
+    #result_code, data = business_logic.add_cosmetologist(DebugData.example_cosmetologist)
 
     ui = UI(business_logic)
     ui.mainloop()

@@ -1,6 +1,5 @@
 from mapper import setup_mapper, Client, Cosmetologist, Appointment
 from exceptions import *
-from constants import *
 
 from sqlalchemy.exc import IntegrityError, StatementError
 
@@ -11,28 +10,30 @@ class Transactions:
     def __init__(self):
         self.mapper = setup_mapper()
 
-    # Select transactions
-
-    def log_in(self, login, password):
+    def authenticate(self, login, password):
         try:
-            result = self.mapper.query(Client) \
+            user_data = self.mapper.query(Client) \
                 .filter(Client.login == login,
                         Client.password == password) \
                 .first()
-            if result is None:
+            if user_data is None:
                 raise LoginFailedException
+
+            self.current_user = user_data
+
+            appointment_history = self.mapper.query(Appointment) \
+                .filter(Appointment.id_client == user_data.id) \
+                .all()
         except LoginFailedException as error:
             self.mapper.rollback()
-            return error.detail
+            return 1, error.detail
         except StatementError as error:
             self.mapper.rollback()
-            return error.detail
+            return 2, error.detail
 
-        self.current_user = result
+        return 0, (user_data, appointment_history)
 
-        return 0, result
-
-    def load_all_cosmetologist_info(self):
+    def load_all_cosmetologists(self):
         try:
             result = self.mapper.query(Cosmetologist).all()
         except StatementError as error:
@@ -41,7 +42,7 @@ class Transactions:
 
         return 0, result
 
-    def load_all_appointment_info(self):
+    def load_all_appointments(self):
         try:
             result = self.mapper.query(Appointment).all()
         except StatementError as error:
@@ -50,7 +51,17 @@ class Transactions:
 
         return 0, result
 
-    def load_all_client_info(self):
+    def add_cosmetologist(self, cosmetologist_info):
+        try:
+            self.mapper.add(Cosmetologist(**cosmetologist_info))
+            self.mapper.commit()
+        except StatementError as error:
+            self.mapper.rollback()
+            return 1, error.detail
+
+        return 0,
+
+    def load_all_clients(self):
         try:
             result = self.mapper.query(Client).all()
         except StatementError as error:
@@ -59,11 +70,11 @@ class Transactions:
 
         return 0, result
 
-    # Insert transactions
-
-    def create_appointment(self, **appointment_info):
+    def create_appointment(self, *appointment_info):
         try:
-            self.mapper.add(Appointment(**appointment_info))
+            print(appointment_info)
+            new_id = self.mapper.query(Appointment.id).filter(max(Appointment.id)).one()
+            self.mapper.add(Appointment(str(int(new_id) + 1), self.current_user.id, *appointment_info))
             self.mapper.commit()
         except IntegrityError as error:
             self.mapper.rollback()
@@ -71,7 +82,7 @@ class Transactions:
 
         return 0,
 
-    def create_client(self, **client_info):
+    def register_client(self, **client_info):
         try:
             self.mapper.add(Client(**client_info))
             self.mapper.commit()
@@ -90,5 +101,3 @@ class Transactions:
             return 1, error.detail
 
         return 0,
-
-        # Select transactions
